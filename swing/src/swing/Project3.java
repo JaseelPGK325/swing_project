@@ -43,7 +43,7 @@ public class Project3 {
 	private JTextField textField_10;
 	private JTextField textField_11;
 	private JTable table;
-
+int j=0,i=0;
 	/**
 	 * Launch the application.
 	 */
@@ -70,6 +70,7 @@ public class Project3 {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.window);
@@ -91,6 +92,11 @@ public class Project3 {
 		textField_4.setBounds(92, 33, 180, 26);
 		panel.add(textField_4);
 		textField_4.setColumns(10);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
+		comboBox_2.setBounds(226, 205, 87, 20);
+		frame.getContentPane().add(comboBox_2);
 		
 		JLabel lblFrom = new JLabel("From");
 		lblFrom.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -118,6 +124,10 @@ public class Project3 {
 		lblDate.setBounds(22, 195, 46, 14);
 		panel.add(lblDate);
 		
+		JRadioButton rdbtnAc = new JRadioButton("AC");
+		rdbtnAc.setBounds(112, 165, 49, 23);
+		frame.getContentPane().add(rdbtnAc);
+		
 		JLabel lblTime = new JLabel("Time");
 		lblTime.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTime.setBounds(22, 242, 46, 14);
@@ -134,6 +144,35 @@ public class Project3 {
 		textField_8.setColumns(10);
 		
 		JButton btnConfirm = new JButton("Confirm");
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String book=String.format("%d", j);
+				j++;
+				String v="";
+				if(rdbtnAc.isSelected()) {
+					v="Ac";
+				
+				}
+				else {
+					v="NonAc";
+				}
+				DefaultTableModel model=(DefaultTableModel)table.getModel();
+				model.addRow(new String[]
+						{
+								textField.getText(),
+								book,
+								textField_5.getText(),
+								textField_6.getText(),
+								(String)comboBox_2.getSelectedItem(),
+								textField_8.getText(),
+								textField_7.getText(),
+								v,
+								textField_10.getText(),
+								
+						}
+						);
+			}
+		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnConfirm.setBounds(148, 295, 89, 23);
 		panel.add(btnConfirm);
@@ -195,9 +234,6 @@ public class Project3 {
 		rdbtnFirstClass.setBounds(26, 165, 80, 23);
 		frame.getContentPane().add(rdbtnFirstClass);
 		
-		JRadioButton rdbtnAc = new JRadioButton("AC");
-		rdbtnAc.setBounds(112, 165, 49, 23);
-		frame.getContentPane().add(rdbtnAc);
 		
 		JRadioButton rdbtnSleeper = new JRadioButton("Sleeper");
 		rdbtnSleeper.setBounds(175, 165, 73, 23);
@@ -217,10 +253,7 @@ public class Project3 {
 		comboBox_1.setBounds(126, 205, 80, 20);
 		frame.getContentPane().add(comboBox_1);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
-		comboBox_2.setBounds(226, 205, 87, 20);
-		frame.getContentPane().add(comboBox_2);
+		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -281,23 +314,39 @@ public class Project3 {
 		JButton btnNewButton = new JButton("TOTAL");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				textField_11.setText("Any");
+				String book=String.format("%d", i);
+				textField_9.setText(book);
+				i++;
 				double t=0;
-				String m="";
+				double m=0;
+				double number=Double.parseDouble((String)comboBox_2.getSelectedItem());
+				
 				if(rdbtnSingleTicket.isSelected()) {t=t+500;}
 				else {t=t+700;}
 				if(rdbtnAc.isSelected()) {t=t+500;
-				String m1="200";
-				textField_1.setText(m1);}
+				
+				textField_1.setText("200");}
 				else {t=t+300;
-				String m2="100";
-				textField_1.setText(m2);}
+				
+				textField_1.setText("100");}
 				if(rdbtnSleeper.isSelected())
 				{t=t+500;}
 				else {t=t+300;}
-				m=m+t;
-				textField_2.setText(m);
+				m=(m+t)*number;
 				
-				
+				String r=String.format("%.2f", m);
+				textField_2.setText(r);
+				if(rdbtnAc.isSelected()) {
+					String l=String.format("%.2f", m+200);
+					textField_3.setText(l);
+					textField_10.setText(l);
+				}
+				else {
+					String l=String.format("%.2f", m+100);
+					textField_3.setText(l);
+					
+				}
 				String str=textField.getText();
 				textField_4.setText(str);
 				textField_5.setText(comboBox.getSelectedItem().toString());

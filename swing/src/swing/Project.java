@@ -274,7 +274,11 @@ frame.getContentPane().add(button_13);
 
 JButton button_14 = new JButton(".");
 button_14.addActionListener(new ActionListener() {
+	
 	public void actionPerformed(ActionEvent e) {
+		String Number=textField.getText()+button_14.getText();
+		textField.setText(Number);
+		
 	}
 });
 button_14.setFont(new Font("Tahoma", Font.PLAIN, 15));

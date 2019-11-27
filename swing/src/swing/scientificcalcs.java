@@ -281,6 +281,8 @@ public class scientificcalcs {
 		JButton button_13 = new JButton(".");
 		button_13.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String Number=textField.getText()+button_13.getText();
+				textField.setText(Number);
 			}
 		});
 		button_13.setBounds(290, 182, 46, 23);
